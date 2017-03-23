@@ -35,10 +35,17 @@ module.exports = function (app, passport) {
 	//	next();
 	//});
 
+	app.post('/logout', function (req, res, next) {
+     	// delete the cookies that you need to delete
+     	next();  // our logout handler will get called next
+    });
+
 	//Redirect Login Page
 	app.get('/logout', function(req, res){
+		req.logOut();
 		req.session.destroy(function (err) {
-		   res.redirect('/');
+		   res.clearCookie('connect.sid', { path: '/login' });
+		   res.redirect('/login');
 		   res.locals.session = null;
 		   res.locals.login = null;
 		 });
