@@ -1,37 +1,38 @@
 var mongoose 	= require('mongoose');
 var express = require('express');
 var router = express.Router();
-var Product = require('../models/product')
+var passport = ('passport');
+var Product = require('../models/product');
 var Products = mongoose.model('Product');
+var Cart = require('../models/cart');
 
 /* GET home page. */
-router.get('/product', function(request, response) {
+router.get('/', function(request, response) {
 	var query = Products.find({});
 	query.exec((error, products) => {
-		if (error) {	
-			return response.status(500).send({success: false, error: error, message: 'Something went wrong.'});
-		} 
-		if (!products) {
+		if (error) 
+			return response.status(404).send({success: false, error: error, message: 'Something went wrong.'});
+		if (!products) 
 			return response.status(200).send({success: false, message: 'Product item does not exist'});
-		}
-		response.render('index.ejs', {success: true, products: products, message: 'Successfully fetched the product.', title: "Product Lists" });
+		response.render('index.ejs', {success: true, products: products, session: request.user, message: 'Successfully fetched the product.', title: "Product Lists" });
 		//response.json({success: true, menu: menu, message: 'Successfully fetched the product.'});
 	});
 });
 
-/* GET home page. */
-router.post('/product/create', function(request, response) {
-	var productItem = new Products(request.body);
+router.get('/add-to-cart/:id', function(req, res, next){
+	var productId = req.params.id;
+	var cart = new Cart(req.session.cart ? req.session.cart: {items: {}});
 
-    productItem.save((error, product) => {        
-        if (error) {			
-			return response.status(500).send({success: false, error: error, message: 'Something went wrong.'});
+	Products.findById(productId, function(err, product){
+		if(err){
+			return response.status(404).send({success: false, error: error, message: 'Something went wrong.'});
 		}
-		if (!product) {	
-			return response.status(200).send({success: false, message: 'Something went wrong.'});
-		}
-        response.json({success: true, product: product, message: 'Product Successfully Registered.'});
-    });
+		cart.add(product, product.id);
+		req.session.cart = cart;
+		console.log(req.session.cart);
+		res.redirect('/');
+	});
 });
+
 
 module.exports = router;

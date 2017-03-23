@@ -29,7 +29,7 @@ app.use(session({
 		resave: false,
 	    saveUninitialized: false, 
 		store: new mongoStore({ mongooseConnection: mongoose.connection }),
-		cookie: { maxAge: 180 * 60 * 1000}
+		cookie: { maxAge: 60 * 60 * 1000}
 	}));
 
 app.use(passport.initialize());
@@ -41,10 +41,11 @@ app.use(function(req, res, next){
   res.locals.session = req.session;
   next();
 });
-
-var passportAuth = require('./config/passport')(passport);
-var routes = require('./app/routes/routes.js')(app, passport);
-var productRoutes = require('./app/routes/product.js');
+ 
+require('./config/passport')(passport);
+require('./app/routes/routes')(app, passport);
+require('./app/routes/product-auth')(app, passport);
+var productRoutes = require('./app/routes/product');
 
 app.use('/', productRoutes);
 

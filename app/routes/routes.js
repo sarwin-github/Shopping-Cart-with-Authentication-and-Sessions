@@ -1,3 +1,4 @@
+
 module.exports = function (app, passport) {
 
 	//Render Logged in
@@ -5,10 +6,6 @@ module.exports = function (app, passport) {
 		res.render('login.ejs', {message: req.flash('loginMessage')});
 	});
 
-	//app.use('/product', notLoggedIn, function(req,res,next){
-	//	next();
-	//});
-	
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/profile',
 		failureRedirect: '/login',
@@ -29,14 +26,22 @@ module.exports = function (app, passport) {
 	//Render Profile
 	app.get('/profile', isLoggedIn, function(req, res){
 		res.render('profile.ejs', {
-			user: req.user
+			session: req.user
 		});
 	});
 
+	//check if logged
+	//app.use('/add-to-cart/:id', isLoggedIn, function(req, res){
+	//	next();
+	//});
+
 	//Redirect Login Page
 	app.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/product');
+		req.session.destroy(function (err) {
+		   res.redirect('/');
+		   res.locals.session = null;
+		   res.locals.login = null;
+		 });
 	});
 };
 
