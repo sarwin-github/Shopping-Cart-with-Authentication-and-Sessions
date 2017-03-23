@@ -1,10 +1,11 @@
 module.exports = function (app, passport) {
 
 	//Render Logged in
-	app.get('/', function(req,res){
+	app.get('/login', function(req,res){
 		res.render('login.ejs', {message: req.flash('loginMessage')});
 	});
 
+	
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/profile',
 		failureRedirect: '/login',
@@ -41,3 +42,10 @@ var isLoggedIn = function(req, res, next){
 		return next();
 	res.redirect('/');
 };
+
+var notLoggedIn = function (req, res, next){
+	if(!req.isAuthenticated()){
+		return next();
+	}
+	res.redirect('/');
+}

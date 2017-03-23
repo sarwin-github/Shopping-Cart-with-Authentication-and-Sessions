@@ -5,12 +5,11 @@ var Product = require('../models/product')
 var Products = mongoose.model('Product');
 
 /* GET home page. */
-router.get('/index', function(request, response, next) {
+router.get('/', function(request, response) {
 	var query = Products.find({});
 	query.exec((error, products) => {
 		if (error) {	
 			return response.status(500).send({success: false, error: error, message: 'Something went wrong.'});
-			next(error);
 		} 
 		if (!products) {
 			return response.status(200).send({success: false, message: 'Product item does not exist'});
@@ -21,7 +20,7 @@ router.get('/index', function(request, response, next) {
 });
 
 /* GET home page. */
-router.post('/create', function(request, response, next) {
+router.post('/create', function(request, response) {
 	var productItem = new Products(request.body);
 
     productItem.save((error, product) => {        

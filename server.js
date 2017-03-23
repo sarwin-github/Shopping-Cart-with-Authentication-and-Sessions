@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
 app.use(session({
 		secret: "secret session key: A235fsdASge33yH3tu",    
@@ -45,7 +46,7 @@ var passportAuth = require('./config/passport')(passport);
 var routes = require('./app/routes/routes.js')(app, passport);
 var productRoutes = require('./app/routes/product.js');
 
-app.use('/', productRoutes);
+app.use('/product', productRoutes);
 
 
 // catch 404 and forward to error handler
