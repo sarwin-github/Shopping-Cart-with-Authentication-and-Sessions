@@ -7,6 +7,7 @@ var express = require('express')
 ,	bodyParser = require('body-parser')
 , 	session = require('express-session')
 ,	http = require('http')
+,	mongoStore = require('connect-mongo')(session)
 ,	app = express();
 
 var mongoConnectionLocal  = 'mongodb://localhost:27017/authentication-session';
@@ -24,15 +25,46 @@ app.set('view engine', 'ejs');
 
 app.use(session({
 		secret: "secret session key: A235fsdASge33yH3tu",    
-		resave: true,
-	    saveUninitialized: true}));
+		resave: false,
+	    saveUninitialized: false, 
+		store: new mongoStore({ mongooseConnection: mongoose.connection }),
+		cookie: { maxAge: 180 * 60 * 1000}
+	}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated(); //variable available in all views ('login' is the name of the variable)
+  res.locals.session = req.session;
+  next();
+});
+
 var passportAuth = require('./config/passport')(passport);
 var routes = require('./app/routes/routes.js')(app, passport);
+var productRoutes = require('./app/routes/product.js');
 
+app.use('/', productRoutes);
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 http.createServer(app).listen(app.get('port'), () => {
 	console.log('Server Listening to port: ' + app.get('port'));
