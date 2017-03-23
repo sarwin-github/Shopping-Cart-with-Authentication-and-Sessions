@@ -5,6 +5,9 @@ module.exports = function (app, passport) {
 		res.render('login.ejs', {message: req.flash('loginMessage')});
 	});
 
+	//app.use('/product', notLoggedIn, function(req,res,next){
+	//	next();
+	//});
 	
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/profile',
@@ -33,7 +36,7 @@ module.exports = function (app, passport) {
 	//Redirect Login Page
 	app.get('/logout', function(req, res){
 		req.logout();
-		res.redirect('/');
+		res.redirect('/product');
 	});
 };
 
@@ -47,5 +50,5 @@ var notLoggedIn = function (req, res, next){
 	if(!req.isAuthenticated()){
 		return next();
 	}
-	res.redirect('/');
+	res.redirect('/product');
 }

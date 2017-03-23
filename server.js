@@ -46,7 +46,7 @@ var passportAuth = require('./config/passport')(passport);
 var routes = require('./app/routes/routes.js')(app, passport);
 var productRoutes = require('./app/routes/product.js');
 
-app.use('/product', productRoutes);
+app.use('/', productRoutes);
 
 
 // catch 404 and forward to error handler

@@ -5,7 +5,7 @@ var Product = require('../models/product')
 var Products = mongoose.model('Product');
 
 /* GET home page. */
-router.get('/', function(request, response) {
+router.get('/product', function(request, response) {
 	var query = Products.find({});
 	query.exec((error, products) => {
 		if (error) {	
@@ -20,7 +20,7 @@ router.get('/', function(request, response) {
 });
 
 /* GET home page. */
-router.post('/create', function(request, response) {
+router.post('/product/create', function(request, response) {
 	var productItem = new Products(request.body);
 
     productItem.save((error, product) => {        
