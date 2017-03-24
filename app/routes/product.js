@@ -47,8 +47,8 @@ router.get('/shopping-cart', function(req, res, next) {
     } 
     var cart = new Cart(req.session.cart);
     res.render('shop/shopping-cart', { 
+    	session: req.user, 
     	products: cart.generateArray(), 
-    	session: req.user,  
     	totalPrice: cart.totalPrice, 
     	totalQty: cart.totalQty, 
     	title: 'Shopping Cart'});
