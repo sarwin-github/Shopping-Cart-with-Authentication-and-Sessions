@@ -3,7 +3,7 @@ module.exports = function (app, passport) {
 
 	//Render Logged in
 	app.get('/login', function(req,res){
-		res.render('login.ejs', {message: req.flash('loginMessage')});
+		res.render('account/login.ejs', {message: req.flash('loginMessage')});
 	});
 
 	app.post('/login', passport.authenticate('local-login', {
@@ -14,7 +14,7 @@ module.exports = function (app, passport) {
 
 	//Render Sign Up
 	app.get('/signup', function(req, res){
-		res.render('signup.ejs', { message: req.flash('signupMessage')});
+		res.render('account/signup.ejs', { message: req.flash('signupMessage')});
 	});
 
 	app.post('/signup', passport.authenticate('local-signup', {
@@ -25,7 +25,7 @@ module.exports = function (app, passport) {
 
 	//Render Profile
 	app.get('/profile', isLoggedIn, function(req, res){
-		res.render('profile.ejs', {
+		res.render('account/profile.ejs', {
 			session: req.user
 		});
 	});

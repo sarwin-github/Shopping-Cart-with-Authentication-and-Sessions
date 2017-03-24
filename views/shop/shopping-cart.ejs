@@ -43,20 +43,23 @@
 		.thumbnailPadding{
 			padding: 10px;
 		}
+		.row{
+			padding: 20px;
+		}
 	</style>
 </head>
 <body>
 	<div class="container" style="background-color: white; padding: 0px;">
-
-		<% include templates/navbar.ejs %>
+		<%- include("../templates/navbar.ejs") %>
 		<%if(!products){%>
-		<div class="row">
+		<div>
 			<div class="col-sm-6 col-md-6">
 				<h3>No Items in Cart</h3>
 			</div>
 		</div> 
 		<%}%>
 		<div class="row">
+
 		<%if(products){%>
 		  <% products.forEach(function(itemData){%>
 			<div class="col-sm-6 col-md-6">
@@ -88,12 +91,13 @@
 	</div> 
 	<hr>
 
-	<div class="row">
-		<div class="col-sm-6 col-md-6">
-			<button>Checkout</button>
+	<div class="row text-center">
+		<div class="col-sm-12 col-md-12">
+			<button class="btn btn-danger btn-sm">Checkout</button>
+			<button class="btn btn-info btn-sm">Save to Profile</button>
 		</div>
-	</div> 
-	<hr>
+	</div>
+ 	<hr>
 </div>
 </body>
 </html>

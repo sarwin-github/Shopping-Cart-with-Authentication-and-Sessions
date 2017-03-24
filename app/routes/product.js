@@ -7,14 +7,14 @@ const Products = mongoose.model('Product');
 const Cart = require('../models/cart');
 
 /* GET home page. */
-router.get('/', function(request, response) {
+router.get('/', function(req, res) {
 	var query = Products.find({});
 	query.exec((error, products) => {
 		if (error) 
-			return response.status(404).send({success: false, error: error, message: 'Something went wrong.'});
+			return res.status(404).send({success: false, error: error, message: 'Something went wrong.'});
 		if (!products) 
-			return response.status(200).send({success: false, message: 'Product item does not exist'});
-		response.render('index.ejs', {success: true, products: products, session: request.user, message: 'Successfully fetched the product.', title: "Product Lists" });
+			return res.status(200).send({success: false, message: 'Product item does not exist'});
+		res.render('shop/index.ejs', {success: true, products: products, session: req.user, message: 'Successfully fetched the product.', title: "Product Lists" });
 		//response.json({success: true, menu: menu, message: 'Successfully fetched the product.'});
 	});
 });
@@ -36,9 +36,9 @@ router.get('/add-to-cart/:id', function(req, res, next){
 
 router.get('/shopping-cart', function(req, res, next) {
     if (!req.session.cart) {
-        return res.render('shopping-cart', { products: null});
+        return res.render('shop/shopping-cart', { products: null});
     } 
     var cart = new Cart(req.session.cart);
-    res.render('shopping-cart', { products: cart.generateArray(), totalPrice: cart.totalPrice, title: 'Shopping Cart'});
+    res.render('shop/shopping-cart', { products: cart.generateArray(), session: req.user,  totalPrice: cart.totalPrice, title: 'Shopping Cart'});
 });
 module.exports = router;
