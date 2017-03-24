@@ -2,8 +2,8 @@ module.exports = function Cart(oldCart){
 
 	//Set Cart 
 	this.items = oldCart.items || {}; //If cart have value use old cart items otherwise empty
-	this.totalQty = oldCart.totalQty|| 0; //Get oldcart quantity value otherwise set to 0
-	this.totalPrice = oldCart.totalPrice|| 0;//Get oldcart price value otherwise set to 0
+	this.totalQty = oldCart.totalQty || 0; //Get oldcart quantity value otherwise set to 0
+	this.totalPrice = oldCart.totalPrice || 0;//Get oldcart price value otherwise set to 0
 
 	this.add = function(item, id){
 		var storedItem = this.items[id];
@@ -19,12 +19,11 @@ module.exports = function Cart(oldCart){
 		this.totalPrice += storedItem.item.price; //get total individual price
 	};
 
-	this.generatedArray = function(){
+	this.generateArray = function(){
 		var arr = [];
 		for(var id in this.items){
 			arr.push(this.items[id]);
 		}
 		return arr;
 	};
-
 };

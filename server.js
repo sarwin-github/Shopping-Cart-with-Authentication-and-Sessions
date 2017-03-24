@@ -1,4 +1,4 @@
-var express = require('express')
+const express = require('express')
 ,	mongoose = require('mongoose')
 ,	passport = require('passport')
 , 	flash = require('connect-flash')
@@ -7,7 +7,7 @@ var express = require('express')
 ,	bodyParser = require('body-parser')
 , session = require('express-session')
 ,	http = require('http')
-//,	mongoStore = require('connect-mongo')(session)
+,	mongoStore = require('connect-mongo')(session)
 ,	app = express();
 
 var mongoConnectionLocal  = 'mongodb://localhost:27017/authentication-session';
@@ -28,8 +28,8 @@ app.use(session({
 		secret: "secret session key: A235fsdASge33yH3tu",    
 		resave: false,
 	  saveUninitialized: false, 
-		//store: new mongoStore({ mongooseConnection: mongoose.connection }),
-		//cookie: { maxAge: 60 * 60 * 1000}
+		store: new mongoStore({ mongooseConnection: mongoose.connection }),
+		cookie: { maxAge: 60 * 60 * 1000}
 	}));
 
 app.use(passport.initialize());
@@ -38,7 +38,7 @@ app.use(flash());
 
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated(); //variable available in all views ('login' is the name of the variable)
-  //res.locals.session = req.session;
+  res.locals.session = req.session;
   next();
 });
  
@@ -46,7 +46,6 @@ require('./config/passport')(passport);
 require('./app/routes/routes')(app, passport);
 require('./app/routes/product-auth')(app, passport);
 var productRoutes = require('./app/routes/product');
-
 app.use('/', productRoutes);
 
 

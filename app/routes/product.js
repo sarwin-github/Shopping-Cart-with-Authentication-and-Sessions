@@ -1,10 +1,10 @@
-var mongoose 	= require('mongoose');
-var express = require('express');
-var router = express.Router();
-var passport = ('passport');
-var Product = require('../models/product');
-var Products = mongoose.model('Product');
-var Cart = require('../models/cart');
+const mongoose 	= require('mongoose');
+const express = require('express');
+const router = express.Router();
+const passport = ('passport');
+const Product = require('../models/product');
+const Products = mongoose.model('Product');
+const Cart = require('../models/cart');
 
 /* GET home page. */
 router.get('/', function(request, response) {
@@ -21,7 +21,7 @@ router.get('/', function(request, response) {
 
 router.get('/add-to-cart/:id', function(req, res, next){
 	var productId = req.params.id;
-	var cart = new Cart(req.session.cart ? req.session.cart: {items: {}});
+	var cart = new Cart(req.session.cart ? req.session.cart: {});
 
 	Products.findById(productId, function(err, product){
 		if(err){
@@ -29,10 +29,16 @@ router.get('/add-to-cart/:id', function(req, res, next){
 		}
 		cart.add(product, product.id);
 		req.session.cart = cart;
-		console.log(req.session.cart);
 		res.redirect('/');
+		console.log(req.session.cart);
 	});
 });
 
-
+router.get('/shopping-cart', function(req, res, next) {
+    if (!req.session.cart) {
+        return res.render('shopping-cart', { products: null});
+    } 
+    var cart = new Cart(req.session.cart);
+    res.render('shopping-cart', { products: cart.generateArray(), totalPrice: cart.totalPrice, title: 'Shopping Cart'});
+});
 module.exports = router;

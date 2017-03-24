@@ -44,10 +44,7 @@ module.exports = function (app, passport) {
 	app.get('/logout', function(req, res){
 		req.logOut();
 		req.session.destroy(function (err) {
-		   res.clearCookie('connect.sid', { path: '/login' });
 		   res.redirect('/login');
-		   res.locals.session = null;
-		   res.locals.login = null;
 		 });
 	});
 };

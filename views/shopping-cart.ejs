@@ -1,0 +1,99 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>Shopping Cart</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+	<style type="text/css">
+		body{
+			background-color: whitesmoke;
+		}
+		.break{
+			display:block; word-wrap:break-word;
+		}
+
+		.container-text{
+			margin:1px;
+			text-align: justify;
+		}
+
+		.truncate {
+			height:120px;
+			line-height:20px; /* Height / no. of lines to display */
+			overflow:hidden;
+		}
+
+		.container-image{
+			float: left;
+			margin-top: 25px;
+			margin-right: 10px;
+			width: 100px;
+			padding: 5px;
+		}
+
+		.thumbnailPadding{
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" style="background-color: white; padding: 0px;">
+
+		<% include templates/navbar.ejs %>
+		<%if(!products){%>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+				<h3>No Items in Cart</h3>
+			</div>
+		</div> 
+		<%}%>
+		<div class="row">
+		<%if(products){%>
+		  <% products.forEach(function(itemData){%>
+			<div class="col-sm-6 col-md-6">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<span class="badge"><%= itemData.qty %></span>
+						<span><strong><%= itemData.item.title %></strong></span>
+						<span class="label label-success">$<%= itemData.price %></span>
+						<div class="btn-group">
+						<button class="btn btn-primary btn-xs dropdown-toggle"  data-toggle="dropdown" type="button">					
+								Action<span class="caret"></button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Reduce By 1</a></li>
+									<li><a href="#">Remove All</a></li>
+								</ul>
+							</span>
+
+					</div>
+				</li>
+			</ul>
+		</div>
+			<%});%>
+		  <%}%>
+	</div> 
+	<div class="row">
+		<div class="col-sm-6 col-md-6">
+			<strong>Total: <%= this.totalQty %></strong>
+		</div>
+	</div> 
+	<hr>
+
+	<div class="row">
+		<div class="col-sm-6 col-md-6">
+			<button>Checkout</button>
+		</div>
+	</div> 
+	<hr>
+</div>
+</body>
+</html>
