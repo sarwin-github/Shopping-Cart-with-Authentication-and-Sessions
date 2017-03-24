@@ -85,8 +85,10 @@
 		  <%}%>
 	</div> 
 	<div class="row">
-		<div class="col-sm-6 col-md-6">
-			<strong>Total: <%= this.totalQty %></strong>
+		<div class="col-sm-12 col-md-12">
+			<% if(totalPrice){%>
+			<strong>Total: $<%= totalPrice %></strong> | <strong>Quantity: <%= totalQty %></strong>
+			<% } %>
 		</div>
 	</div> 
 	<hr>

@@ -9,12 +9,19 @@ const Cart = require('../models/cart');
 /* GET home page. */
 router.get('/', function(req, res) {
 	var query = Products.find({});
+	var cart = new Cart(req.session.cart ? req.session.cart: {});
 	query.exec((error, products) => {
 		if (error) 
 			return res.status(404).send({success: false, error: error, message: 'Something went wrong.'});
 		if (!products) 
 			return res.status(200).send({success: false, message: 'Product item does not exist'});
-		res.render('shop/index.ejs', {success: true, products: products, session: req.user, message: 'Successfully fetched the product.', title: "Product Lists" });
+		res.render('shop/index.ejs', { 
+			success: true, 
+			products: products, 
+			session: req.user, 
+			totalQty: cart.totalQty, 
+			message: 'Successfully fetched the product.', 
+			title: "Product Lists" });
 		//response.json({success: true, menu: menu, message: 'Successfully fetched the product.'});
 	});
 });
@@ -39,6 +46,11 @@ router.get('/shopping-cart', function(req, res, next) {
         return res.render('shop/shopping-cart', { products: null});
     } 
     var cart = new Cart(req.session.cart);
-    res.render('shop/shopping-cart', { products: cart.generateArray(), session: req.user,  totalPrice: cart.totalPrice, title: 'Shopping Cart'});
+    res.render('shop/shopping-cart', { 
+    	products: cart.generateArray(), 
+    	session: req.user,  
+    	totalPrice: cart.totalPrice, 
+    	totalQty: cart.totalQty, 
+    	title: 'Shopping Cart'});
 });
 module.exports = router;
