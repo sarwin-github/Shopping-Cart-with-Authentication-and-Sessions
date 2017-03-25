@@ -1,17 +1,154 @@
-<div class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Modal title</h4>
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+  <title>eShopLite-Home</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <style type="text/css">
+    body{
+      background-color: whitesmoke;
+    }
+
+    .break{
+     display:block; word-wrap:break-word;
+   }
+
+   .container-text{
+     margin:1px;
+     text-align: justify;
+   }
+
+   .truncate {
+    height:120px;
+    line-height:20px; /* Height / no. of lines to display */
+    overflow:hidden;
+  }
+
+  .container-image{
+    float: left;
+    margin-top: 25px;
+    margin-right: 10px;
+    width: 100px;
+    padding: 5px;
+  }
+
+  .thumbnailPadding{
+    padding: 10px;
+  }
+</style>
+</head>
+<body>
+
+ <div class="container" style="background-color: white; padding: 0px;">
+  <%- include("../templates/navbar.ejs") %>
+
+  <div class="row"> 
+    <div style=" padding: 15px; margin-right: 10%; margin-left:10%;">
+      <legend class="text-right">
+      <div class="text-left"><h2>Checkout Now!</h2></div>
+        Your Total Price: 
+        <%if(totalPrice){%>
+          $<%= totalPrice%>
+          <%}%>        |         
+          Total Quantity: 
+          <%if(totalQty){%>
+            <%= totalQty%>
+            <%}%>        
+          </legend>
+          <form class="form-horizontal" action="#">
+            <legend>User Account Details</legend>
+            <div class="form-group">
+              <label for="inputFirstName" class="col-lg-2 control-label">First Name: </label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputFullName" class="col-lg-2 control-label">Last Name:</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputFullName" placeholder="Full Name" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPhoneNumber" class="col-lg-2 control-label">Phone Number:</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputPhoneNumber" placeholder="Phone Number" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail" class="col-lg-2 control-label">Email:</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputEmail" placeholder="Email" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="textArea" class="col-lg-2 control-label">Billing Address:</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="textArea"></textarea>
+                <span class="help-block">Note: Type your full billing address here</span>
+              </div>
+            </div>
+
+            <legend>Card Account Details</legend>
+            <div class="form-group">
+              <label for="inputCardHolderName" class="col-lg-2 control-label">Card Holder Name:</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputCardHolderName" placeholder="Cart Holder Name" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputCardNumber" class="col-lg-2 control-label">Card Number:</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputCardNumber" placeholder="Card Number" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-2 control-label">Card Expiration:</label>
+              <div class="col-lg-3">
+                <input type="text" class="form-control" id="CardExpirationMonth" placeholder="Expiration Month" required>
+              </div>
+              <div class="col-lg-3">
+                <input type="text" class="form-control" id="CardExpirationYear" placeholder="Expiration Year" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputCardCVC" class="col-lg-2 control-label">CVC:</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputCardCVC" placeholder="CVC" required>
+              </div>
+            </div>
+
+            <hr>
+            <br>
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2 text-center">
+                <button type="reset" style="color: #ffffff; background-color: #d82d48; border-color: transparent; padding: 10px;">      Reset      </button>
+                <button type="submit" style="color: #ffffff; background-color: #2c3e50; border-color: transparent; padding: 10px;">      Buy Now      </button>
+              </div>
+            </div>
+          </form>
+        </div> 
       </div>
-      <div class="modal-body">
-        <p>One fine body…</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
+      <%- include("../templates/footer.ejs") %>
     </div>
-  </div>
-</div>
+
+  </body>
+  </html>
+

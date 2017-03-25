@@ -40,4 +40,23 @@ router.get('/shopping-cart', function(req, res, next) {
     	totalQty: cart.totalQty });
 });
 
+
+router.get('/checkout', function(req, res, next) {
+    var cart = new Cart(req.session.cart ? req.session.cart: {});
+    if (!req.session.cart) {
+        return res.render('shop/shopping-cart', { 
+        products: null, 
+        totalPrice: cart.totalPrice, 
+        totalQty: cart.totalQty, 
+        items: null,
+        session: req.user });
+    } 
+
+    res.render('shop/checkout', { 
+        session: req.user, 
+        products: cart.generateArray(), 
+        totalPrice: cart.totalPrice, 
+        totalQty: cart.totalQty });
+});
+
 module.exports = router;
