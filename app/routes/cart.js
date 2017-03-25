@@ -1,10 +1,11 @@
 const mongoose 	= require('mongoose');
 const express = require('express');
-const router = express.Router();
-const passport = ('passport');
+
 const Product = require('../models/product');
 const Products = mongoose.model('Product');
 const Cart = require('../models/cart');
+
+const router = express.Router();
 
 router.get('/add-to-cart/:id', function(req, res, next){
 	var productId = req.params.id;

@@ -34,8 +34,6 @@ app.use('/fonts/', express.static(__dirname + '/node_modules/bootstrap/dist/font
 app.use('/fonts/', express.static(__dirname + '/node_modules/font-awesome/fonts'));
 app.use('/css/', express.static(__dirname + '/node_modules/font-awesome/css'));
 
-
-
 app.use(session({
 		secret: "secret session key: A235fsdASge33yH3tu",    
 		resave: false,
@@ -60,8 +58,8 @@ require('./app/routes/product-auth')(app, passport);
 
 //Normal Routes
 var cartRoutes = require('./app/routes/cart');
-var productRoutes = require('./app/routes/product');
 app.use('/', cartRoutes);
+var productRoutes = require('./app/routes/product');
 app.use('/', productRoutes);
 
 // catch 404 and forward to error handler
