@@ -15,6 +15,7 @@ router.get('/', function(req, res) {
 			return res.status(404).send({success: false, error: error, message: 'Something went wrong.'});
 		if (!products) 
 			return res.status(200).send({success: false, message: 'Product item does not exist'});
+		
 		res.render('shop/index.ejs', { 
 			success: true, 
 			products: products, 
@@ -42,10 +43,17 @@ router.get('/add-to-cart/:id', function(req, res, next){
 });
 
 router.get('/shopping-cart', function(req, res, next) {
+    var cart = new Cart(req.session.cart ? req.session.cart: {});
     if (!req.session.cart) {
-        return res.render('shop/shopping-cart', { products: null});
+        return res.render('shop/shopping-cart', { 
+        products: null, 
+        totalPrice: cart.totalPrice, 
+    	totalQty: cart.totalQty, 
+    	items: null,
+    	session: req.user, 
+    	title: 'Shopping Cart'});
     } 
-    var cart = new Cart(req.session.cart);
+
     res.render('shop/shopping-cart', { 
     	session: req.user, 
     	products: cart.generateArray(), 

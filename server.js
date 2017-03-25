@@ -13,7 +13,7 @@ const express = require('express')
 var mongoConnectionLocal  = 'mongodb://localhost:27017/authentication-session';
 var mongoConnectionOnline = 'mongodb://shopcartuser:01610715@ds141490.mlab.com:41490/shopping-cart';
 mongoose.Promise = global.Promise;
-mongoose.connect(mongoConnectionOnline, (error, database) => { if(error) { console.log(error); }});
+mongoose.connect(mongoConnectionLocal, (error, database) => { if(error) { console.log(error); }});
 
 app.set('port', process.env.PORT || 8008);
 

@@ -27,6 +27,7 @@ module.exports = function (app, passport) {
 	//Render Profile
 	app.get('/profile', isLoggedIn, function(req, res){
 		var cart = new Cart(req.session.cart ? req.session.cart: {});
+		
 		res.render('account/profile.ejs', {
 			session: req.user,
 			totalQty: cart.totalQty
