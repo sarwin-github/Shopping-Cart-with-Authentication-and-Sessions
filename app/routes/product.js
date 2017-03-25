@@ -50,15 +50,14 @@ router.get('/shopping-cart', function(req, res, next) {
         totalPrice: cart.totalPrice, 
     	totalQty: cart.totalQty, 
     	items: null,
-    	session: req.user, 
-    	title: 'Shopping Cart'});
+    	session: req.user });
     } 
 
     res.render('shop/shopping-cart', { 
     	session: req.user, 
     	products: cart.generateArray(), 
     	totalPrice: cart.totalPrice, 
-    	totalQty: cart.totalQty, 
-    	title: 'Shopping Cart'});
+    	totalQty: cart.totalQty });
 });
+
 module.exports = router;

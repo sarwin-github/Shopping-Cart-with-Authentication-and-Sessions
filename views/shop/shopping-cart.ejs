@@ -2,21 +2,20 @@
 <!doctype html>
 <html>
 <head>
-	<title>Shopping Cart</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<title>eShopLite-Shopping Cart</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/font-awesome.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+	<script src="/js/jquery.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.js"></script>
 
 	<style type="text/css">
 		body{
-			background-color: whitesmoke;
+		  background-color: whitesmoke;
 		}
+		
 		.break{
 			display:block; word-wrap:break-word;
 		}
@@ -46,6 +45,7 @@
 		.row{
 			padding: 20px;
 		}
+
 	</style>
 </head>
 <body>
@@ -61,26 +61,28 @@
 
 		<div class="row">
 		<%if(products){%>
-		  <% products.forEach(function(itemData){%>
+	
 			<div class="col-sm-12 col-md-12">
+				  <% products.forEach(function(itemData){%>
 				<ul class="list-group">
 					<li class="list-group-item">
-						<span class="badge"><%= itemData.qty %></span>
-						<span><strong><%= itemData.item.title %></strong></span>
-						<span class="label label-success">$<%= itemData.price %></span>
-						<div class="btn-group">
-						<button class="btn btn-primary btn-xs dropdown-toggle"  data-toggle="dropdown" type="button">					
+					    <span class="label label-info"><%= itemData.qty %></span>
+						- <span><strong><%= itemData.item.title %></strong></span> |
+						<div class="btn-group pull-right">
+							<button class="btn btn-primary btn-xs dropdown-toggle"  data-toggle="dropdown" type="button">					
 								Action<span class="caret"></button>
 								<ul class="dropdown-menu">
 									<li><a href="#">Reduce By 1</a></li>
 									<li><a href="#">Remove All</a></li>
 								</ul>
 							</span>
-					</div>
-				</li>
-			</ul>
+						</div>
+						<span class="label label-success">$<%= itemData.price %></span>
+					</li>
+				</ul>
+				<%});%>
 		</div>
-			<%});%>
+			
 		  <%}%>
 	</div> 
 	<div class="row">
@@ -99,6 +101,7 @@
 		</div>
 	</div>
  	<hr>
+ 	<%- include("../templates/footer.ejs") %>
 </div>
 </body>
 </html>

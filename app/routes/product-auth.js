@@ -16,7 +16,7 @@ module.exports = function(app, passport){
         //response.json({success: true, product: product, message: 'Product Successfully Registered.'});
         res.render('product-create.ejs', { sucess: true, product: product, message: 'Added new product.'});
     });	}*/  
-    	res.render('product-create.ejs', { sucess: true, session: req.user, title: 'Create Pew Product'});
+    	res.render('product-create.ejs', { sucess: true, session: req.user});
 	});
 };
 
