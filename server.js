@@ -57,9 +57,12 @@ app.use(function(req, res, next){
 require('./config/passport')(passport);
 require('./app/routes/routes')(app, passport);
 require('./app/routes/product-auth')(app, passport);
-var productRoutes = require('./app/routes/product');
-app.use('/', productRoutes);
 
+//Normal Routes
+var cartRoutes = require('./app/routes/cart');
+var productRoutes = require('./app/routes/product');
+app.use('/', cartRoutes);
+app.use('/', productRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
