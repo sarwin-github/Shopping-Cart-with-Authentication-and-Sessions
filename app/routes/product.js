@@ -16,14 +16,16 @@ router.get('/', function(req, res) {
 			return res.status(404).send({success: false, error: error, message: 'Something went wrong.'});
 		if (!products) 
 			return res.status(200).send({success: false, message: 'Product item does not exist'});
-		
+		 var successMsg = req.flash('success')[0];
 		res.render('shop/index.ejs', { 
 			success: true, 
 			products: products, 
 			session: req.user, 
 			totalQty: cart.totalQty, 
 			message: 'Successfully fetched the product.', 
-			title: "Product Lists" });
+			title: "Product Lists",
+			successMsg: successMsg
+		});
 		//response.json({success: true, menu: menu, message: 'Successfully fetched the product.'});
 	});
 });

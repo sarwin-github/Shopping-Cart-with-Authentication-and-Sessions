@@ -63,40 +63,37 @@
             <%= totalQty%>
             <%}%>        
           </legend>
-          <form class="form-horizontal" action="#">
+          <form class="form-horizontal" action="/checkout" id="checkout-form" method="post">
             <legend>User Account Details</legend>
+            <div id="charge-error" class="alert alert-danger hidden"> </div>
+            <% if(errMsg){%>
+              <div class="alert alert-danger hidden"><%= errMsg%><br> </div>
+            <% }%>
             <div class="form-group">
-              <label for="inputFirstName" class="col-lg-2 control-label">First Name: </label>
+              <label for="inputFirstName" class="col-lg-2 control-label">Full Name: </label>
               <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="inputFullName" class="col-lg-2 control-label">Last Name:</label>
-              <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputFullName" placeholder="Full Name" required>
+                <input type="text" class="form-control" id="name" placeholder="First Name" required>
               </div>
             </div>
 
             <div class="form-group">
               <label for="inputPhoneNumber" class="col-lg-2 control-label">Phone Number:</label>
               <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputPhoneNumber" placeholder="Phone Number" required>
+                <input type="text" class="form-control" id="phone-number" placeholder="Phone Number" required>
               </div>
             </div>
 
             <div class="form-group">
               <label for="inputEmail" class="col-lg-2 control-label">Email:</label>
               <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputEmail" placeholder="Email" required>
+                <input type="text" class="form-control" id="email" placeholder="Email" required>
               </div>
             </div>
 
             <div class="form-group">
               <label for="textArea" class="col-lg-2 control-label">Billing Address:</label>
               <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="textArea"></textarea>
+                <textarea class="form-control" rows="3" id="address"></textarea>
                 <span class="help-block">Note: Type your full billing address here</span>
               </div>
             </div>
@@ -105,31 +102,31 @@
             <div class="form-group">
               <label for="inputCardHolderName" class="col-lg-2 control-label">Card Holder Name:</label>
               <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputCardHolderName" placeholder="Cart Holder Name" required>
+                <input type="text" class="form-control" id="card-name" placeholder="Cart Holder Name" required>
               </div>
             </div>
 
             <div class="form-group">
               <label for="inputCardNumber" class="col-lg-2 control-label">Card Number:</label>
               <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputCardNumber" placeholder="Card Number" required>
+                <input type="text" class="form-control" id="card-number" placeholder="Card Number" required>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-lg-2 control-label">Card Expiration:</label>
               <div class="col-lg-3">
-                <input type="text" class="form-control" id="CardExpirationMonth" placeholder="Expiration Month" required>
+                <input type="text" class="form-control" id="card-expiry-month" placeholder="Expiration Month" required>
               </div>
               <div class="col-lg-3">
-                <input type="text" class="form-control" id="CardExpirationYear" placeholder="Expiration Year" required>
+                <input type="text" class="form-control" id="card-expiry-year" placeholder="Expiration Year" required>
               </div>
             </div>
 
             <div class="form-group">
               <label for="inputCardCVC" class="col-lg-2 control-label">CVC:</label>
               <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputCardCVC" placeholder="CVC" required>
+                <input type="text" class="form-control" id="card-cvc" placeholder="CVC" required>
               </div>
             </div>
 
@@ -148,7 +145,8 @@
 
       <%- include("../templates/footer.ejs") %>
     </div>
-
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript" src="public/javascripts/checkout.js"></script>
   </body>
   </html>
 
