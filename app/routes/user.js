@@ -8,10 +8,16 @@ module.exports = function (app, passport) {
 	});
 
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/profile',
 		failureRedirect: '/login',
 		failureFlash: true
-	}));
+	}), function(req, res, next){
+		if(req.session.oldUrl){
+			res.redirect(req.session.oldUrl);
+			req.session.oldUrl = null;
+		} else {
+			res.redirect('/profile')
+		}
+	});
 
 	//Render Sign Up
 	app.get('/signup', function(req, res){
@@ -19,10 +25,17 @@ module.exports = function (app, passport) {
 	});
 
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect: '/profile',
 		failureRedirect: '/signup',
 		failureFlash: true
-	}));
+	}), function(req, res, next){
+		if(req.session.oldUrl){
+			var oldUrl = req.session.oldUrl
+			req.session.oldUrl = null;
+			res.redirect(oldUrl); 
+		} else {
+			res.redirect('/profile')
+		}
+	});
 
 	//Render Profile
 	app.get('/profile', isLoggedIn, function(req, res){

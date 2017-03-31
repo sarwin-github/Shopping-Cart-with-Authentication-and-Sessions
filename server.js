@@ -53,8 +53,7 @@ app.use(function(req, res, next){
 });
  
 require('./config/passport')(passport);
-require('./app/routes/routes')(app, passport);
-require('./app/routes/product-auth')(app, passport);
+require('./app/routes/user')(app, passport);
 
 //Normal Routes
 var cartRoutes = require('./app/routes/cart');

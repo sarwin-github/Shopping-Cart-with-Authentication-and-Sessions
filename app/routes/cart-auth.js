@@ -4,7 +4,6 @@ const express = require('express');
 const Product = require('../models/product');
 const Products = mongoose.model('Product');
 const Cart = require('../models/cart');
-const Order = require('../models/order');
 
 const router = express.Router();
 
@@ -42,7 +41,7 @@ router.get('/shopping-cart', function(req, res, next) {
 });
 
 
-router.get('/checkout', isLoggedIn, function(req, res, next) {
+router.get('/checkout', function(req, res, next) {
     var cart = new Cart(req.session.cart ? req.session.cart: {});
     if (!req.session.cart) {
         return res.render('shop/shopping-cart', { 
@@ -62,7 +61,7 @@ router.get('/checkout', isLoggedIn, function(req, res, next) {
 });
 
 
-router.post('/checkout', isLoggedIn, function(req, res, next) {
+router.post('/checkout', function(req, res, next) {
     var cart = new Cart(req.session.cart ? req.session.cart: {});
 
     if (!req.session.cart) {
@@ -90,32 +89,11 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
             req.flash('error', err.message);
             return res.redirect('/checkout');
         }
-
-        var order = new Order({
-            user: req.user,
-            cart: cart,
-            name: req.body.name,
-            address: req.body.address,
-            email: req.body.email,
-            phone: req.body.phone,
-            paymentId: charge.id
-        });
-
-        order.save(function(err, result){
-            req.flash('success', 'Successfuly bought product');
-            req.session.cart = null;
-            res.redirect('/');
-        });        
+        req.flash('success', 'Successfuly bought product');
+        req.session.cart = null;
+        res.redirect('/');
     });
 });
 
 
 module.exports = router;
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    req.session.oldUrl = req.url;
-    res.redirect('/login');
-}
