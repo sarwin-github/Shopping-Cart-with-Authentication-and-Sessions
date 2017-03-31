@@ -12,13 +12,19 @@
   <script src="/js/bootstrap.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <style>
-    body        { padding-top:80px; }
+    body { padding-top:80px; }
+    .GameBG{
+      background:url('public/images/bg.jpg');  
+      background-repeat: no-repeat; 
+      background-attachment: fixed;
+      background-position: right top; 
+    }
   </style>
 </head>
-<body>
+<body class="GameBG">
   <div class="container">
 
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-6 col-sm-offset-3" style="background-color: rgba(255,255,255, 0.85); border-radius: 10px;">
 
       <h1><span class="fa fa-sign-in"></span> Signup</h1>
       <hr>
@@ -34,12 +40,53 @@
         <div class="text-center">
           <form action="/signup" method="post">
            <div class="input-group">
-             <input id='username' class='form-control' type="text" name="email" placeholder="Email" required>
+             <input id='email' class='form-control' type="text" name="email" placeholder="Email" required>
+             <span class="input-group-addon" style="background-color:#9b9b9b; border:none;">
+               <i class="glyphicon glyphicon-envelope" style="color:white; width:20px"></i>
+             </span>
+           </div>
+           <br >
+
+           <div class="input-group">
+             <input id='name' class='form-control' type="text" name="name" placeholder="Full Name" required>
              <span class="input-group-addon" style="background-color:#9b9b9b; border:none;">
                <i class="glyphicon glyphicon-user" style="color:white; width:20px"></i>
              </span>
            </div>
            <br >
+
+           <div class="input-group">
+             <input id='about' class='form-control' type="text" name="about" placeholder="Simple About Me" required>
+             <span class="input-group-addon" style="background-color:#9b9b9b; border:none;">
+               <i class="glyphicon glyphicon-user" style="color:white; width:20px"></i>
+             </span>
+           </div>
+           <br >
+
+           <div class="input-group">
+             <input id='address' class='form-control' type="text" name="address" placeholder="Address" required>
+             <span class="input-group-addon" style="background-color:#9b9b9b; border:none;">
+               <i class="glyphicon glyphicon-user" style="color:white; width:20px"></i>
+             </span>
+           </div>
+           <br >
+
+           <div class="input-group">
+             <input id='phone' class='form-control' type="text" name="phone" placeholder="Phone" required>
+             <span class="input-group-addon" style="background-color:#9b9b9b; border:none;">
+               <i class="glyphicon glyphicon-user" style="color:white; width:20px"></i>
+             </span>
+           </div>
+           <br >
+
+           <div class="input-group">
+             <input id='country' class='form-control' type="text" name="country" placeholder="Country" required>
+             <span class="input-group-addon" style="background-color:#9b9b9b; border:none;">
+               <i class="glyphicon glyphicon-user" style="color:white; width:20px"></i>
+             </span>
+           </div>
+           <br >
+
            <div class="input-group">
              <input id='password' class='form-control' placeholder="Password" type="password" name="password" required>
              <span class="input-group-addon" style="background-color:#9b9b9b; border:none;">
@@ -52,7 +99,7 @@
        </div>
        <hr>
 
-       <p>Already have an account? <a href="/">Login</a></p>
+       <p>Already have an account? <a href="/login">Login</a></p>
        <p>Or go <a href="/">home</a>.</p>
 
      </div>

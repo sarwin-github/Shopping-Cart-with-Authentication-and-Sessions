@@ -20,39 +20,54 @@
     .break{
      display:block; word-wrap:break-word;
    }
+
+   .GameBG{
+     background:url('public/images/bg.jpg');  
+     background-repeat: no-repeat; 
+     background-attachment: fixed;
+   }
  </style>
 </head>
-<body>
+<body class="GameBG">
   <div class="container" style="background-color: white; padding: 0px;">
     <%- include("../templates/navbar.ejs") %>
-    <div class="row">
-
+    <br>
+    <div class="row" style="padding: 20px;">
       <!-- LOCAL INFORMATION -->
       <div class="col-md-4">
         <div class="well">
           <h3><span class="fa fa-user"></span> User Profile</h3>
           <p class="break">
             <strong>Name</strong>: <%= session.local.name %><br>
-            <strong>About Me</strong>: <%= session.local.about %><br><br>
-            <strong>Hobbies</strong>: <%= session.local.hobbies %>
+            <strong>About Me</strong>: <%= session.local.about %><br>
+             <strong>Country</strong>: <%= session.local.country %><br>
+              <strong>Phone</strong>: <%= session.local.phone %><br><br>
+            <strong>Points</strong>: <%= session.local.points %>
           </p>
-
         </div>
       </div>
+
       <!-- LOCAL INFORMATION -->
       <div class="col-md-8">
         <div class="well">
           <h3><span class="fa fa-user"></span> My Shopping Carts</h3>
-          <table class="table table-responsive">
-            <thead>
-              <tr>
-                <th><th>
-                </tr>
-              </thead>
-              <tbody>
-                <td></td>
-              </tbody>
-            </table>
+          <% orders.forEach(function(data){%>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <ul class="list-group">
+                  <% data.items.forEach(function(items){%>
+                    <li class="list-group-item"> 
+                      <%= items.item.title %> | <%= items.qty %> Unit/s
+                      <span class="badge">$ <%= items.item.price%></span>
+                    </li>
+                    <%});%>
+                </ul>
+              </div>
+              <div class="panel-footer">
+                <strong>Total: $ <%= data.cart.totalPrice %></strong>
+              </div>
+            </div>
+            <%});%>
           </div>
         </div> 
       </div>

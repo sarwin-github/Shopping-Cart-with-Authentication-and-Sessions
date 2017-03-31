@@ -1,4 +1,5 @@
 const Cart = require('../models/cart');
+const Order = require('../models/order');
 
 module.exports = function (app, passport) {
 
@@ -40,22 +41,22 @@ module.exports = function (app, passport) {
 	//Render Profile
 	app.get('/profile', isLoggedIn, function(req, res){
 		var cart = new Cart(req.session.cart ? req.session.cart: {});
-		
-		res.render('account/profile.ejs', {
-			session: req.user,
-			totalQty: cart.totalQty
+		Order.find({user: req.user}, function(err, orders){
+			if(err){
+				return res.write('Error');
+			}
+			orders.forEach( function(order) {
+				cart = new Cart(order.cart);
+				order.items = cart.generateArray();
+			});
+			res.render('account/profile.ejs', {
+				session: req.user,
+				totalQty: cart.totalQty,
+				totalPrice: cart.totalPrice,
+				orders: orders
+			});
 		});
 	});
-
-	//check if logged
-	//app.use('/add-to-cart/:id', isLoggedIn, function(req, res){
-	//	next();
-	//});
-
-	app.post('/logout', function (req, res, next) {
-     	// delete the cookies that you need to delete
-     	next();  // our logout handler will get called next
-    });
 
 	//Redirect Login Page
 	app.get('/logout', function(req, res){
