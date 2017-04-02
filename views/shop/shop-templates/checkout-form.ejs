@@ -1,0 +1,77 @@
+<form class="form-horizontal" action="/checkout" id="checkout-form" method="post">
+  <legend>User Account Details</legend>
+  <div id="charge-error" class="alert alert-danger hidden"> </div>
+  <% if(errMsg){%>
+    <div class="alert alert-danger hidden"><%= errMsg%><br> </div>
+    <% }%>
+    <div class="form-group">
+      <label for="inputFirstName" class="col-md-2 control-label">Full Name: </label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="name" placeholder="Full Name" required name="name">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPhoneNumber" class="col-md-2 control-label">Phone Number:</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="phone-number" placeholder="Phone Number" required name="phone">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail" class="col-md-2 control-label">Email:</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="email" placeholder="Email" required name="email">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="textArea" class="col-md-2 control-label">Billing Address:</label>
+      <div class="col-md-10">
+        <textarea class="form-control" rows="3" id="address" name="address"></textarea>
+        <span class="help-block">Note: Type your full billing address here</span>
+      </div>
+    </div>
+
+    <legend>Card Account Details</legend>
+    <div class="form-group">
+      <label for="inputCardHolderName" class="col-md-2 control-label">Card Holder Name:</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="card-name" placeholder="Cart Holder Name" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputCardNumber" class="col-md-2 control-label">Card Number:</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="card-number" placeholder="Card Number" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-2 control-label">Card Expiration:</label>
+      <div class="col-md-3">
+        <input type="text" class="form-control" id="card-expiry-month" placeholder="Expiration Month" required>
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" id="card-expiry-year" placeholder="Expiration Year" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputCardCVC" class="col-md-2 control-label">CVC:</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="card-cvc" placeholder="CVC" required>
+      </div>
+    </div>
+
+    <hr>
+    <br>
+
+    <div class="form-group">
+      <div class="col-md-10 col-md-offset-2 text-center">
+        <button type="reset" style="color: #ffffff; background-color: #d82d48; border-color: transparent; padding: 10px;">      Reset      </button>
+        <button type="submit" style="color: #ffffff; background-color: #2c3e50; border-color: transparent; padding: 10px;">      Buy Now      </button>
+      </div>
+    </div>
+  </form>

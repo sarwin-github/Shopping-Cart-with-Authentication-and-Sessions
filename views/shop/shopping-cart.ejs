@@ -14,12 +14,15 @@
 	<script src="/js/bootstrap.js"></script>
 
 	<style type="text/css">
-		body{
+		html,body{
 		  background-color: whitesmoke;
+		  overflow-x: hidden; 
 		}
 		
 		.break{
-			display:block; word-wrap:break-word;
+			display:block; 
+			word-wrap:
+			break-word;
 		}
 
 		.container-text{
@@ -58,6 +61,7 @@
 </head>
 <body class="GameBG">
 	<div class="container" style="background-color: rgba(255,255,255,0.8); padding: 0px;">
+
 		<%- include("../templates/navbar.ejs") %>
 		<div class="row">
 		<legend style="padding-left: 20px;"><h3>Your Shopping Cart</h3></legend>
@@ -118,6 +122,6 @@
 	</div>
  	<hr>
  	<%- include("../templates/footer.ejs") %>
-</div>
+</div></div>
 </body>
 </html>
